@@ -27,19 +27,9 @@
     <script src="{% static "bower_components/modernizr/modernizr.js" %}"></script>
   </head>
   <body>
-  <!-- Header -->
-    <nav class="navbar navbar-calaccess" role="navigation">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      {% block navbar %}
-      {% endblock %}
-      <div class="navbar-header">
-        <a class="navbar-brand" href="/">
-          <img src="{% static "images/ccdc-logo.png" %}" alt="">
-        </a>
-      </div>
-    </nav>
-        
-
+    <!-- Header -->
+    {% include '_header.html' %}
+    
     <div class="main container">
     {% block content %}
     {% endblock %}

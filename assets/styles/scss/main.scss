@@ -17,7 +17,7 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 
 .navbar-calaccess {
   @extend .navbar-default;
-  background: white;
+  background: #222;
 
   .navbar-header {
     margin: 0 auto;
@@ -43,11 +43,12 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 }
 
 .jumbotron-calaccess {
-  background: transparent;
+  background: #d63e2a;
 
   h2 {
     text-transform: lowercase;
     text-align: center;
+    color: white;
   }
 
   #filer-type {

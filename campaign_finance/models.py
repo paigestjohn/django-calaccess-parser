@@ -26,16 +26,33 @@ class Filer(models.Model):
 
     def _create_slug(self):
         return slugify(self.name)
-
     slug = property(_create_slug)
 
-    def _total_contributions(self):
+    def get_sum_of_summary_stat(self, stat_type):
+        """
+        'total_contribs'
+        'total_expenditures'
 
-        qs = Filing.objects.filter(committee__filer=self)
-        total = Summary.objects.filter(filing__in=qs).aggregate(tot=Sum('total_contribs'))['tot']
-        return total
+        'itemized_expenditures'
+        'itemized_monetary_contribs'
+        'non_monetary_contribs'
+        'outstanding_debts'
+        'total_monetary_contribs
+        'unitemized_expenditures'
+        'unitemized_monetary_contribs'
+        """
+        queryset = Filing.objects.filter(committee__filer=self)
+        data = Summary.objects.filter(filing__in=queryset).aggregate(Sum(stat_type)).values()[0]
+        return data
 
-    total_contributions = property(_total_contributions) 
+    def _get_stat_total_contributions(self):
+        return self.get_sum_of_summary_stat('total_contribs')
+    total_contributions = property(_get_stat_total_contributions)
+
+    def _get_stat_total_expenditures(self):
+        return self.get_sum_of_summary_stat('total_expenditures')
+    total_expenditures = property(_get_stat_total_expenditures)
+
 
 
 class Committee(models.Model):

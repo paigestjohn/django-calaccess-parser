@@ -1,6 +1,9 @@
 // CSS Framework
 @import '../../bower_components/sass-bootstrap/lib/bootstrap';
 
+// Media Query Help
+@import '../../bower_components/sass-mediaqueries/media-queries';
+
 // Font Awesome Icons
 $fa-font-path: "../bower_components/font-awesome/fonts";
 @import '../../bower_components/font-awesome/scss/font-awesome';
@@ -15,34 +18,44 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 // Add your code here or create a _*.scss file and import it
 // e.g., @import 'project'
 
-.navbar-calaccess {
-  @extend .navbar-default;
-  //background: transparent;
+// .navbar {
+//   min-height: 0;
+//   height: 40px;
+// }
+
+#navbar-calaccess {
+  background: transparent;
+  @include min-screen(1024px) {
+    height: 0px;
+  }
+
+  .navbar-brand {
+    color: grey;
+  }
 
   .navbar-logo {
     float: left;
     height: 35px;
-    padding: 10px 0 10px 10px;
+    padding: 5px 5px 10px 10px;
     box-sizing: initial;
   }
 
-  .navbar-form {
-    width: 300px;
-    margin-top: 3em;
+  // .navbar-form {
+  //   width: 300px;
+  //   margin-top: 3em;
 
-    .form-group { 
-      display: inline-block;
-    }
-  }
+  //   .form-group { 
+  //     display: inline-block;
+  //   }
+  // }
 }
 
 .jumbotron-calaccess {
-  background: #d63e2a;
+  background: transparent;
 
   h2 {
     text-transform: lowercase;
     text-align: center;
-    color: white;
   }
 
   #filer-type {
@@ -52,7 +65,7 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 
 
 .main {
-  form {
+  #main-search {
     padding: 10px;
     //margin-top: 100px;
     background: aliceblue;

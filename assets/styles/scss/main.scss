@@ -17,19 +17,13 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 
 .navbar-calaccess {
   @extend .navbar-default;
-  background: #222;
+  //background: transparent;
 
-  .navbar-header {
-    margin: 0 auto;
-    width: 250px;
-    float: none;
-    text-align: center;
-
-    .navbar-brand {
-      color: $red;
-      float: none;
-      display: inline-block;
-    }
+  .navbar-logo {
+    float: left;
+    height: 35px;
+    padding: 10px 0 10px 10px;
+    box-sizing: initial;
   }
 
   .navbar-form {

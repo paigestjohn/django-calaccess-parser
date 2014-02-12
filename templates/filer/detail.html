@@ -10,28 +10,33 @@
 {% endblock %}
 
 {% block content %}
+<div class="jumbotron jumbotron-calaccess">
+  <h2>{{ filer.name }} ({{ filer.filer_id }})</h2>
+</div>
 <div class="row">
-  <div class="col-lg-8 col-lg-offset-2">
-    <div class="jumbotron jumbotron-calaccess">
-      <h2>{{ filer.name }} ({{ filer.filer_id }})</h2>
-      <p id="filer-type">Type: <span class="label label-info">{{ filer.filer_type }}</span></p>
+  <div class="col-md-3">
+    <div class="stat" id="some-stat">
+      <span class="data">{{ filer.total_contributions }}</span>
+      <p>Total Raised</p>
     </div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Committee</th>
-          <th>Type</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for committee in filer.committee_set.all %}
-        <tr>
-           <td>{{ committee.name }}</td>
-           <td>{{ committee.committee_type }}</td>
-         </tr>
-         {% endfor %}
-      </tbody>
-    </table>
+  </div>
+  <div class="col-md-3">
+    <div class="stat" id="some-stat">
+      <span class="data">{{ filer.total_expenditures }}</span>
+      <p>Total Spent</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat" id="some-stat">
+      <span class="data">{{ filer.committee_set.count }}</span>
+      <p>Total Committees</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat" id="some-stat">
+      <span class="data">{{ filer.stats_set.all.0.str_year_span }}</span>
+      <p>Years Active</p>
+    </div>
   </div>
 </div>
 {% endblock %}

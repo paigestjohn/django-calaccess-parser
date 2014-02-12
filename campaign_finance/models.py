@@ -77,12 +77,30 @@ class Committee(models.Model):
     def get_absolute_url(self):
         return reverse('committee_detail', args=[str(self.pk)])
 
-    def _total_contributions(self):
-        qs = Filing.objects.filter(committee=self)
-        total = Summary.objects.filter(filing__in=qs).aggregate(tot=Sum('total_contribs'))['tot']
-        return total
+    def get_sum_of_summary_stat(self, stat_type):
+        """
+        'total_contribs'
+        'total_expenditures'
 
-    total_contributions = property(_total_contributions) 
+        'itemized_expenditures'
+        'itemized_monetary_contribs'
+        'non_monetary_contribs'
+        'outstanding_debts'
+        'total_monetary_contribs
+        'unitemized_expenditures'
+        'unitemized_monetary_contribs'
+        """
+        queryset = Filing.objects.filter(committee=self)
+        data = Summary.objects.filter(filing__in=queryset).aggregate(Sum(stat_type)).values()[0]
+        return data
+
+    def _get_stat_total_contributions(self):
+        return self.get_sum_of_summary_stat('total_contribs')
+    total_contributions = property(_get_stat_total_contributions)
+
+    def _get_stat_total_expenditures(self):
+        return self.get_sum_of_summary_stat('total_expenditures')
+    total_expenditures = property(_get_stat_total_expenditures)
 
 
 class Cycle(models.Model):

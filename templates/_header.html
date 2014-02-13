@@ -1,5 +1,5 @@
 {% load staticfiles %}
-<nav class="navbar navbar-default" role="navigation" id="navbar-calaccess">
+<nav class="navbar navbar-inverse" role="navigation" id="navbar-calaccess">
     <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -10,7 +10,7 @@
           <span class="icon-bar"></span>
       </button>
       <img class="navbar-logo" src="{% static "images/ccdc-logo.png" %}" alt="">
-      <a class="navbar-brand" href="/">California Elections 2014</a>
+      <a class="navbar-brand" href="/">California Campaign Finance</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -20,7 +20,7 @@
         <li><a href="#">Committees</a></li>
         <li><a href="#">Organizations</a></li>
       </ul>
-      <form action="/search/" method="get" class="navbar-form navbar-left" role="search">
+      <form action="/search/" method="get" class="navbar-form navbar-right" role="search">
         <div class="form-group">
           <input type="text" name="q" class="form-control" placeholder="Search">
         </div>

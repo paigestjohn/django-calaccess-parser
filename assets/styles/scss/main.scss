@@ -1,14 +1,3 @@
-// CSS Framework
-@import '../../bower_components/sass-bootstrap/lib/bootstrap';
-
-// Media Query Help
-@import '../../bower_components/sass-mediaqueries/media-queries';
-
-// Font Awesome Icons
-$fa-font-path: "../bower_components/font-awesome/fonts";
-@import '../../bower_components/font-awesome/scss/font-awesome';
-
-// Defaults
 @import 'defaults';
 
 // ==================
@@ -24,13 +13,13 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 // }
 
 #navbar-calaccess {
-  background: transparent;
+  // /background: transparent;
   @include min-screen(1024px) {
     height: 0px;
   }
 
   .navbar-brand {
-    color: grey;
+    //color: grey;
   }
 
   .navbar-logo {
@@ -39,30 +28,7 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
     padding: 5px 5px 10px 10px;
     box-sizing: initial;
   }
-
-  // .navbar-form {
-  //   width: 300px;
-  //   margin-top: 3em;
-
-  //   .form-group { 
-  //     display: inline-block;
-  //   }
-  // }
 }
-
-.jumbotron-calaccess {
-  background: transparent;
-
-  h2 {
-    text-transform: lowercase;
-    text-align: center;
-  }
-
-  #filer-type {
-    text-align: center;
-  }
-}
-
 
 .main {
   #main-search {
@@ -72,6 +38,28 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 
     .search-text {
       display: inline-block;
+    }
+  }
+}
+
+.candidate-detail {
+  border: 1px solid #e2e2e2;
+  border-radius: 5px;
+  box-shadow: 0 8px 6px -6px #e2e2e2;
+  padding: 10px;
+  text-align: center;
+
+  .page-header {
+    h1, small {
+      text-transform: lowercase;
+    }
+
+    h1 {
+      font-weight: bold;
+      &:first-letter {
+        text-transform: uppercase;
+        color: $red;
+      }
     }
   }
 }

@@ -18,5 +18,5 @@ class FilerView(generic.DetailView):
     template = 'templates/filer/detail.html'
 
 class CommitteeView(generic.DetailView):
-    model = Filer
+    model = Committee
     template = 'templates/committee/detail.html'

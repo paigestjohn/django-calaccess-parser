@@ -77,8 +77,12 @@ class Committee(models.Model):
     def __unicode__(self):
         return self.name
 
+    def _create_slug(self):
+        return slugify(self.name)
+    slug = property(_create_slug)
+
     def get_absolute_url(self):
-        return reverse('committee_detail', args=[str(self.pk)])
+        return reverse('committee_detail', args=[str(self.slug), str(self.pk)])
 
     def get_sum_of_summary_stat(self, stat_type):
         """

@@ -44,7 +44,9 @@
         <tbody>
         {% for committee in filer.committee_set.all %}
           <tr> 
-            <td id="committee">{{ committee.name }}</td>
+            <td id="committee">
+              <a href="{{ committee.get_absolute_url }}">{{ committee.name }}</a>
+            </td>
             <td id="contribution" class="table-data">
               <div class="bar" data-amount="{{ filer.total_contributions|intcomma }}" style="width: {{ committee.percent_of_contribution_from_total }}%;"></div>
             </td>

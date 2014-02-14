@@ -95,6 +95,7 @@ INSTALLED_APPS = (
     'compressor',
     'haystack',
     'django_extensions',
+    'debug_toolbar',
 
     # project apps
     'calaccess',

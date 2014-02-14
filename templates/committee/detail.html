@@ -1,9 +1,24 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block title %}
 {{ committee.name }} |
 {% endblock %}
 
 {% block content %}
-{{ committee.name }}
+<div class="container" style="background: #fcfcfc;">
+    <div class="page-header">
+        <h1>{{ committee.name }} <small></small></h1>
+    </div>
+    <div class="col-md-6" style="background: aliceblue;">
+        <h2>Contributions <small>${{ committee.total_contributions|intcomma }} from {{ committee.contribution_set.count }} folks</small></h2>
+        <div class="timeline">
+        </div>
+    </div>
+    <div class="col-md-6" style="background: pink;">
+        <h2>Expenditures <small>${{ committee.total_expenditures|intcomma }} from {{ committee.expenditure_set.count }} folks</small></h2>
+        <div class="timeline">
+        </div>
+    </div>
+</div>
 {% endblock %}

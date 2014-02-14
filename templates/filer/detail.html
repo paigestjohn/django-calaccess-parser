@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load humanize %}
 
+{% block title %}
+{{ filer.name }} |
+{% endblock %}
+
 {% block content %}
 <div class="candidate-detail">
   <div id="candidate-info">

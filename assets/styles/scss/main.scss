@@ -191,3 +191,27 @@
     }
   }
 }
+
+.timeline {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  height: 10em;
+
+  .bar {
+    height: 8em;
+    width: 1.5em;
+    margin-right: 1px;
+
+    &:hover {
+      background: rgb(239, 239, 239);
+    }
+
+    .count {
+      display: block;
+      text-indent: -9999px;
+      background: #aaa;
+    }
+  }
+}

@@ -2,55 +2,74 @@
 {% load humanize %}
 
 {% block content %}
-<div class="main container">
-  <div class="row">
-    <div class="col-lg-4">
-      <section class="candidate-detail">
-        <div class="page-header">
-          <h1>{{ filer.name }}</h1>
-          <small>{{ filer.status }} | <span id="filer-id">{{ filer.filer_id }}</span></small>
-        </div>
-        <!-- Data -->
-        <div class="stat" id="some-stat">
-          <span class="data">${{ filer.total_contributions|intcomma }}</span>
-          <p>Total Raised</p>
-        </div>
-        <div class="stat" id="some-stat">
-          <span class="data">${{ filer.total_expenditures|intcomma }}</span>
-          <p>Total Spent</p>
-        </div>
-        <div class="stat" id="some-stat">
-          <span class="data">{{ filer.committee_set.count }}</span>
-          <p>Total Committees</p>
-        </div>
-        <div class="stat" id="some-stat">
-          <span class="data">{{ filer.stats_set.all.0.str_year_span }}</span>
-          <p>Years Active</p>
-        </div>
-      </section>
-    </div>
-    <div class="col-md-8" style=" height: 500px; overflow-y: scroll;">
-      <table class="table table-responsive table-condensed table-striped">
+<div class="candidate-detail">
+  <div id="candidate-info">
+    <header>
+      <h1>{{ filer.name }}</h1>
+      <dl>
+        <dt>Filer ID</dt>
+        <dd>{{ filer.filer_id }}</dd>
+
+        <dt>Committees</dt>
+        <dd>{{ filer.committee_set.count }}</dd>
+
+        <dt>Years active</dt>
+        <dd>{{ filer.stats_set.all.0.str_year_span }}</dd>
+      </dl>
+    </header>
+  </div>
+  <div class="container">
+    <div class="-table-responsive">
+      <table class="spending-table">
         <thead>
           <tr>
-            <th>Committee</th>
-            <th>Raised</th>
-            <th>Spent</th>
-            <th>Years</th>
+            <th>
+              <p>Committee</p>
+              <span></span>
+            </th>
+            <th id="contribution">
+              <p>Raised</p>
+              <span>${{ filer.total_contributions|intcomma }}</span>
+            </th>
+            <th id="expenditure">
+              <p>Spent</p>
+              <span>${{ filer.total_contributions|intcomma }}</span>
+            </th>
           </tr>
         </thead>
         <tbody>
         {% for committee in filer.committee_set.all %}
-          <tr>
-            <td>{{ committee.name }}</td>
-            <td>${{ committee.total_contributions|intcomma }}</td>
-            <td>${{ committee.total_expenditures|intcomma }}</td>
-            <td>{{ committee.stats_set.all.0.str_year_span }}</td>
+          <tr> 
+            <td id="committee">{{ committee.name }}</td>
+            <td id="contribution" class="table-data">
+              <div class="bar" data-amount="{{ filer.total_contributions|intcomma }}" style="width: {{ committee.percent_of_contribution_from_total }}%;"></div>
+            </td>
+            <td id="expenditure" class="table-data">
+              <div class="bar" data-amount="{{ filer.total_expenditures|intcomma }}" style="width: {{ committee.percent_of_expenditure_from_total }}%;"></div>
+            </td>
           </tr>
         {% endfor %}
-        </tbody>
+        </tbody> 
       </table>
     </div>
   </div>
 </div>
 {% endblock %}
+
+<!-- 
+{{ filer.name }}
+{{ filer.filer_id }}
+{{ filer.total_contributions|intcomma }}
+{{ filer.total_expenditures|intcomma }}
+{{ filer.committee_set.count }}
+{{ filer.stats_set.all.0.str_year_span }}
+-->
+
+<!-- 
+{% for committee in filer.committee_set.all %}
+  {{ committee.name }}
+  {{ committee.total_contributions|intcomma }}
+  {{ committee.total_expenditures|intcomma }}
+  {{ committee.stats_set.all.0.str_year_span }}
+{% endfor %}
+-->

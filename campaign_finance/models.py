@@ -53,6 +53,8 @@ class Filer(models.Model):
         return self.get_sum_of_summary_stat('total_expenditures')
     total_expenditures = property(_get_stat_total_expenditures)
 
+    def net_cash(self):
+        return self.total_contributions - self.total_expenditures
 
 
 class Committee(models.Model):
@@ -101,6 +103,12 @@ class Committee(models.Model):
     def _get_stat_total_expenditures(self):
         return self.get_sum_of_summary_stat('total_expenditures')
     total_expenditures = property(_get_stat_total_expenditures)
+
+    def percent_of_expenditure_from_total(self):
+        return (self.total_expenditures / self.filer.total_expenditures) * 100
+
+    def percent_of_contribution_from_total(self):
+        return (self.total_contributions / self.filer.total_contributions) * 100
 
 
 class Cycle(models.Model):

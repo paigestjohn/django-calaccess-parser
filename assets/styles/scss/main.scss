@@ -13,13 +13,15 @@
 // }
 
 #navbar-calaccess {
-  // /background: transparent;
+  background: transparent;
   @include min-screen(1024px) {
     height: 0px;
   }
 
   .navbar-brand {
-    //color: grey;
+    @include max-screen(420px) {
+      font-size: 15px;
+    }
   }
 
   .navbar-logo {
@@ -43,22 +45,46 @@
 }
 
 .candidate-detail {
-  border: 1px solid #e2e2e2;
-  border-radius: 5px;
-  box-shadow: 0 8px 6px -6px #e2e2e2;
-  padding: 10px;
-  text-align: center;
+  //background: aliceblue;
+  //color: white;
+  //padding: 1px;
 
-  .page-header {
-    h1, small {
-      text-transform: lowercase;
-    }
+  header {
+    margin: 0 auto;
+    width: 50%;
+    text-align: center;
+    color: darken(#e2e2e2, 55%);
+    border-bottom: 1px solid #e2e2e2;
 
     h1 {
+      text-transform: lowercase;
       font-weight: bold;
+      font-family: '$metaserif';
+
       &:first-letter {
         text-transform: uppercase;
-        color: $red;
+      }
+    }
+
+    dt, dd {
+      display: inline-block;
+      font-family: '$metaserif';
+    }
+
+    dd {
+      margin-right: 10px;
+    }
+  }
+
+  #candidate-data {
+    text-align: center;
+
+    dd {
+      color: $green;
+      font-size: 22px;
+      font-weight: bold;
+      @include max-screen(420px) {
+        font-size: 15px;
       }
     }
   }
@@ -101,4 +127,67 @@
 .data {
   font-weight: bold;
   color: lighten(green, 10%);
+}
+
+.spending-table {
+  margin-top: 50px;
+  display: table;
+  width: 100%;
+
+  thead {
+    th {
+      padding: 10px;
+    }
+  }
+
+  tbody {
+    tr:hover {
+      background: #e2e2e2;
+    }
+  }
+
+  tbody > tr > td {
+    border-top: none;
+  }
+
+  #committee {
+    display: inline-block;
+  }
+
+  .table-data {
+    .bar {
+      display: inline-block;
+      height: 4px;
+    }
+  }
+
+  #contribution {
+    span, p {
+      float: right;
+    }
+
+    span {
+      display: block;
+      clear: both;
+      color: $red;
+    }
+
+    border-right: 1px solid black;
+    .bar {
+      background: $red;
+      float: right;
+    }
+    //width: 100%;
+  }
+
+  #expenditure {
+    span {
+      color: $green;
+    }
+
+    .bar {
+      background: $green;
+      float: left;
+    }
+  }
 }

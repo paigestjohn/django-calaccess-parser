@@ -8,7 +8,7 @@ App = {
         cal.init({
             // passed in values
             itemSelector: selector,
-            start: data.startDate,
+            start: data.startDate(),
             data: data.data,
 
             // formatting

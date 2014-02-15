@@ -1,5 +1,6 @@
 import datetime
 import calendar
+import time
 from collections import defaultdict
 
 from django.db import models
@@ -132,13 +133,33 @@ class Committee(models.Model):
 
         # iterate over object_list and create list with unix timestamp and spendign value
         for item in object_list:
-
             # check if the item is an expenditure or contribution. Should just make the name normal
+            # read the docs on the calendar module to see how this works. We're basically just making a unix timestamp
             if 'expn_date' in item.__dict__:
-                data.append((calendar.timegm((item.expn_date+datetime.timedelta(1)).timetuple()), float(item.amount)))
+                try:
+                    seconds = (item.expn_date+datetime.timedelta(1)).timetuple()
+                    timestamp = calendar.timegm(seconds)
+                except TypeError:
+                    # no data here so it's just going to get today's date
+                    # THIS IS A BUG. PLZ FIX
+                    timestamp = int(time.time())
+
+                amount = float(item.amount)
+
+                data.append((timestamp, amount))
 
             if 'rcpt_date' in item.__dict__:
-                data.append((calendar.timegm((item.rcpt_date+datetime.timedelta(1)).timetuple()), float(item.amount)))
+                try:
+                    seconds = (item.rcpt_date+datetime.timedelta(1)).timetuple()
+                    timestamp = calendar.timegm(seconds)
+                except TypeError:
+                    # no data here so it's just going to get today's date
+                    # THIS IS A BUG. PLZ FIX
+                    timestamp = int(time.time())
+
+                amount = float(item.amount)
+
+                data.append((timestamp, amount))
 
         # take the newly generated list and pass it through the dictionary
         for date, amount in data:

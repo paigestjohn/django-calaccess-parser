@@ -16,11 +16,11 @@
         <h1>{{ committee.name }} <small></small></h1>
     </div>
     <div class="col-md-6">
-        <h2>Contributions <small>${{ committee.total_contributions|intcomma }} from {{ committee.contribution_set.count }} folks</small></h2>
+        <h2>Contributions <small>${{ committee.total_contributions|intcomma }} received from {{ committee.contribution_set.count }} folks</small></h2>
         <div id="contributions-heatmap"></div>
     </div>
     <div class="col-md-6">
-        <h2>Expenditures <small>${{ committee.total_expenditures|intcomma }} from {{ committee.expenditure_set.count }} folks</small></h2>
+        <h2>Expenditures <small>${{ committee.total_expenditures|intcomma }} spent on {{ committee.expenditure_set.count }} folks</small></h2>
         <div id="expenditures-heatmap"></div>
     </div>
 </div>
@@ -28,18 +28,18 @@
 
 {% block javascript %}
 <script>
-    jQuery(document).ready(function($) {
-        var expenditureData = {
-            startDate: new Date('{{ committee.expenditure_set.all.0.expn_date }}'),
-            data: {{ committee.get_itemized_json.expenditures }}
-        },
-        contributionData = {
-            startDate: new Date('{{ committee.contribution_set.all.0.rcpt_date }}'),
-            data: {{ committee.get_itemized_json.contributions }}
-        };
+jQuery(document).ready(function($) {
+    var expenditureData = {
+        startDate: new Date('{{ committee.expenditure_set.all.0.expn_date }}'),
+        data: {{ committee.get_itemized_json.expenditures }}
+    },
+    contributionData = {
+        startDate: new Date('{{ committee.contribution_set.all.0.rcpt_date }}'),
+        data: {{ committee.get_itemized_json.contributions }}
+    };
 
-        App.createCalendar('#contributions-heatmap', expenditureData);
-        App.createCalendar('#expenditures-heatmap', contributionData);
-    });
+    App.createCalendar('#contributions-heatmap', expenditureData);
+    App.createCalendar('#expenditures-heatmap', contributionData);
+});
 </script>
 {% endblock %}

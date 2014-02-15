@@ -6,19 +6,38 @@
 {% endblock %}
 
 {% block content %}
-<div class="container" style="background: #fcfcfc;">
+<div class="container">
+    <ol class="breadcrumb">
+      <li><a href="/">Home</a></li>
+      <li><a href="{{ committee.filer.get_absolute_url }}">{{ committee.filer.name }}</a></li>
+      <li class="active">{{ committee.name }}</li>
+    </ol>
     <div class="page-header">
         <h1>{{ committee.name }} <small></small></h1>
     </div>
-    <div class="col-md-6" style="background: aliceblue;">
+    <div class="col-md-6">
         <h2>Contributions <small>${{ committee.total_contributions|intcomma }} from {{ committee.contribution_set.count }} folks</small></h2>
-        <div class="timeline">
-        </div>
+        <div id="contributions-heatmap"></div>
     </div>
-    <div class="col-md-6" style="background: pink;">
+    <div class="col-md-6">
         <h2>Expenditures <small>${{ committee.total_expenditures|intcomma }} from {{ committee.expenditure_set.count }} folks</small></h2>
-        <div class="timeline">
-        </div>
+        <div id="expenditures-heatmap"></div>
     </div>
 </div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    jQuery(document).ready(function($) {
+        var expenditureData = {
+            
+        },
+        contributionData = {
+            
+        };
+
+        App.createCalendar('#contributions-heatmap', expenditureData);
+        App.createCalendar('#expenditures-heatmap', contributionData);
+    });
+</script>
 {% endblock %}

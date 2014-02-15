@@ -19,6 +19,7 @@
     <!-- JS lib css -->
     <link rel="stylesheet" href="{% static "bower_components/leaflet-dist/leaflet.css" %}">
     <link rel="stylesheet" href="{% static "bower_components/jquery-ui/themes/base/minified/jquery.ui.theme.min.css" %}">
+    <link rel="stylesheet" href="{% static "bower_components/cal-heatmap/cal-heatmap.css" %}">
     <!-- App CSS -->
     <link rel="stylesheet" href="{% static "styles/main.css" %}">
     {% endcompress %}
@@ -46,6 +47,7 @@
     
     <script src="{% static "bower_components/underscore/underscore.js" %}"></script>
     <script src="{% static "bower_components/backbone/backbone.js" %}"></script>
+    <script src="{% static "bower_components/cal-heatmap/cal-heatmap.js" %}"></script>
     
     <!-- CSS Framework JS -->
     <script src="{% static "bower_components/sass-bootstrap/dist/js/bootstrap.min.js" %}"></script>
@@ -53,6 +55,9 @@
     <!-- endbower -->
     <script src="{% static "scripts/main.js" %}"></script>
     {% endcompress %}
+
+    {% block javascript %}
+    {% endblock %}
 
     <!-- livereload -->
     <!-- REMOVE IN PRODUCTION -->

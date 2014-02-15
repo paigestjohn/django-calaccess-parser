@@ -1,4 +1,9 @@
+import datetime
+import calendar
+from collections import defaultdict
+
 from django.db import models
+from django.utils import simplejson as json
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 from django.db.models import Sum
@@ -114,6 +119,42 @@ class Committee(models.Model):
 
     def percent_of_contribution_from_total(self):
         return (self.total_contributions / self.filer.total_contributions) * 100
+
+    def object_list_to_dict(self, object_list):
+        """
+        Take expenditure or contribution set and format them
+        for the heatmap on on the committee detail page
+        """
+        # required vars
+        data = []
+        d = defaultdict(list)
+        f = {}
+
+        # iterate over object_list and create list with unix timestamp and spendign value
+        for item in object_list:
+
+            # check if the item is an expenditure or contribution. Should just make the name normal
+            if 'expn_date' in item.__dict__:
+                data.append((calendar.timegm((item.expn_date+datetime.timedelta(1)).timetuple()), float(item.amount)))
+
+            if 'rcpt_date' in item.__dict__:
+                data.append((calendar.timegm((item.rcpt_date+datetime.timedelta(1)).timetuple()), float(item.amount)))
+
+        # take the newly generated list and pass it through the dictionary
+        for date, amount in data:
+            d[date].append(amount)
+
+        # Finally iterate and return the sum values as a dictionary
+        for k,v in d.iteritems():
+            f[k] = sum(v)
+        return f
+
+    def get_itemized_json(self):
+        spending_json = {}
+        spending_json['contributions']  = self.object_list_to_dict(self.contribution_set.all())
+        spending_json['expenditures'] = self.object_list_to_dict(self.expenditure_set.all())
+
+        return spending_json
 
 
 class Cycle(models.Model):

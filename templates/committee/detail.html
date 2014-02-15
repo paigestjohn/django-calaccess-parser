@@ -30,10 +30,12 @@
 <script>
     jQuery(document).ready(function($) {
         var expenditureData = {
-            
+            startDate: new Date('{{ committee.expenditure_set.all.0.expn_date }}'),
+            data: {{ committee.get_itemized_json.expenditures }}
         },
         contributionData = {
-            
+            startDate: new Date('{{ committee.contribution_set.all.0.rcpt_date }}'),
+            data: {{ committee.get_itemized_json.contributions }}
         };
 
         App.createCalendar('#contributions-heatmap', expenditureData);

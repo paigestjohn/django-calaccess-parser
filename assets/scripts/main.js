@@ -12,14 +12,25 @@ App = {
             data: data.data,
 
             // formatting
-            domain: 'month',
+            domain: 'year',
             subDomain: 'x_day',
             //subDomainTextFormat: "%d",
+            tooltip: true,
             domainMargin: [0, 10, 0, 0],
             legend: [100, 1000, 10000, 10000],
-            range: 5,
+            range: App._determineRangeSize(),
             previousSelector: '#previous',
             nextSelector: '#next',
         });
+    },
+    _determineRangeSize: function () {
+        var browserWidth = document.documentElement.clientWidth;
+
+        if (browserWidth <= 420) {
+            return 3;
+        } else {
+            // Desktop
+            return 5
+        }
     }
 };

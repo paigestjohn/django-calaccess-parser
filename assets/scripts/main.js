@@ -23,6 +23,14 @@ App = {
             nextSelector: '#next',
         });
     },
+    clearCalendar: function (selector) {
+        // This is busted kind
+        var elements = document.querySelector(selector).children;
+
+        _.each(elements, function (el) {
+            el.remove();
+        });
+    },
     _determineRangeSize: function () {
         var browserWidth = document.documentElement.clientWidth;
 

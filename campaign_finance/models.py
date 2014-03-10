@@ -19,7 +19,7 @@ class Filer(models.Model):
     filer_id = models.IntegerField()
     status = models.CharField(max_length=255, null=True)
     filer_type = models.CharField(max_length=10L, choices=FILER_TYPE_OPTIONS)
-    
+
     ## fields updated by other tables
     xref_filer_id = models.CharField(max_length=32L, null=True)
     name = models.CharField(max_length=255L, null=True)
@@ -58,9 +58,6 @@ class Filer(models.Model):
     def _get_stat_total_expenditures(self):
         return self.get_sum_of_summary_stat('total_expenditures')
     total_expenditures = property(_get_stat_total_expenditures)
-
-    def net_cash(self):
-        return self.total_contributions - self.total_expenditures
 
 
 class Committee(models.Model):
@@ -175,8 +172,6 @@ class Committee(models.Model):
         spending_json['contributions']  = self.object_list_to_dict(self.contribution_set.all())
         spending_json['expenditures'] = self.object_list_to_dict(self.expenditure_set.all())
 
-        return spending_json
-
 
 class Cycle(models.Model):
     name = models.IntegerField()
@@ -209,7 +204,7 @@ class Summary(models.Model):
     total_contribs = models.DecimalField(max_digits=16, decimal_places=2)
     outstanding_debts = models.DecimalField(max_digits=16, decimal_places=2)
     ending_cash_balance = models.DecimalField(max_digits=16, decimal_places=2)
-    
+
 
 class Expenditure(models.Model):
     '''
@@ -223,7 +218,7 @@ class Expenditure(models.Model):
     cycle = models.ForeignKey(Cycle)
     committee = models.ForeignKey(Committee)
     filing = models.ForeignKey(Filing)
-    
+
     ## Raw data fields
     amount = models.DecimalField(max_digits=16, decimal_places=2)
     bakref_tid = models.CharField(max_length=50L, blank=True)
@@ -251,13 +246,13 @@ class Expenditure(models.Model):
     tran_id = models.CharField(max_length=20L, blank=True)
     xref_match = models.CharField(max_length=1L, blank=True) # a related item on other schedule has the same transaction identifier. "X" indicates this condition is true
     xref_schnm = models.CharField(max_length=2L, blank=True) # Related record is included on Form 460 Schedules B2 or F
-    
+
     ## Derived fields
     name = models.CharField(max_length=255) # derive like so (e.payee_namt + ' '+ e.payee_namf + ' ' + e.payee_naml + ' ' + e.payee_nams).strip()
     status = models.BooleanField(default=True) # False meanse they are duplicated, additional disclosure that shouldn't be used for summing up but provide addtional info on the transaction
     org_id = models.IntegerField(null=True)
     individual_id = models.IntegerField(null=True)
-    
+
     def raw(self):
         try:
             from calaccess.models import ExpnCd
@@ -271,7 +266,7 @@ class Contribution(models.Model):
     cycle = models.ForeignKey(Cycle)
     committee = models.ForeignKey(Committee)
     filing = models.ForeignKey(Filing)
-    
+
     ## Raw data fields
     amount = models.DecimalField(decimal_places=2, max_digits=14, db_column='AMOUNT')
     bakref_tid = models.CharField(max_length=20L, blank=True)
@@ -316,13 +311,13 @@ class Contribution(models.Model):
     tran_type = models.CharField(max_length=1L, blank=True)
     xref_match = models.CharField(max_length=1L, blank=True)
     xref_schnm = models.CharField(max_length=2L, blank=True)
-    
+
     ## Derived fields
     name = models.CharField(max_length=255) # derive like so (r.ctrib_namt + ' '+ r.ctrib_namf + ' ' + r.ctrib_naml + ' ' + r.ctrib_nams).strip()
     status = models.BooleanField(default=True) # False meanse they are duplicated, additional disclosure that shouldn't be used for summing up but provide addtional info on the transaction
     org_id = models.IntegerField(null=True)
     individual_id = models.IntegerField(null=True)
-    
+
     def raw(self):
         try:
             from calaccess.models import RcptCd
@@ -350,7 +345,7 @@ class Stats(models.Model):
         ('total_contribs', 'Total Contributions'),
         ('total_expenditures', 'Total Expenditures'),
         ('outstanding_debts', 'Outstanding Debt'),
-        
+
     )
     filer_type = models.CharField(max_length=10, choices=FILER_TYPE_CHOICES)
     filer = models.ForeignKey(Filer)
@@ -359,8 +354,7 @@ class Stats(models.Model):
     int_year_span = models.IntegerField() # years in operation eg. 10
     str_year_span = models.CharField(max_length=100) # string description eg. 2000 - 2010
     amount = models.DecimalField(max_digits=16, decimal_places=2)
-    
+
     def __unicode__(self):
         name_str = '%s-%s' % (self.filer_type, self.stat_type)
         return name_str
-    
